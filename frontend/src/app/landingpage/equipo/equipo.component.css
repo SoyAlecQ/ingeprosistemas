@@ -1,0 +1,12 @@
+.equipo .card-title {
+    font-size: 20px;
+}
+
+.equipo .card {
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.titulo-seccion {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}

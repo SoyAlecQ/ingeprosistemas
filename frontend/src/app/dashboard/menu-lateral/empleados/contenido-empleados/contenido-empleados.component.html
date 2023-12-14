@@ -1,0 +1,91 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Empleados</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="dashboard" class="text-danger">Inicio</a></li>
+                        <li class="breadcrumb-item active">Empleados</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-danger card-outline">
+                        <div class="card-header">
+                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                data-target="#modal-nuevo-empleado">
+                                <i class="fas fa-user-plus"></i> Nuevo empleado
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Email</th>
+                                        <th>Foto</th>
+                                        <th>Tipo usuario</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Alexander</td>
+                                        <td>Quiñonez</td>
+                                        <td>{{'byalmon@gmail.com'}}</td>
+                                        <td><img src="../../../assets/img/equipo-1.jpg" class="user-image img-circle border border-2" alt="User Image"></td>
+                                        <td>Administrador</td>
+                                        <td>Activo</td>
+                                        <td>
+                                            <button class="btn btn-warning mr-2" type="submit">
+                                                <i class="fas fa-edit"></i> Editar
+                                            </button>
+                                            <button class="btn btn-danger" type="submit">
+                                                <i class="fas fa-trash-alt"></i> Eliminar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registro Empleado -->
+    <div class="modal fade" id="modal-nuevo-empleado">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nuevo empleado</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger">Agregar empleado</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,56 @@
+.navbar-light .navbar-brand {
+  color: #000;
+  font-size: 25px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.navbar-nav {
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.nav-item {
+  margin-right: 20px;
+}
+
+.btn-danger {
+  font-weight: 500;
+  width: 170px;
+}
+
+.btn-danger:focus {
+  box-shadow: none;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+@media only screen and (max-width: 768px) {
+  div.parent {
+    text-align: center;
+  }
+
+  ul {  
+    text-align: center;
+  }
+
+  .btn-danger {
+    width: 170px;
+    display:inline-block;
+    float: none;
+  }
+
+  .btn-log {
+    text-align: center;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-nav .nav-link {
+    padding-right: 0;
+  }
+}

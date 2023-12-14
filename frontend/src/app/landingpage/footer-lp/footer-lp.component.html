@@ -1,0 +1,95 @@
+<footer id="contacto" class="contacto pt-5 mt-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="mb-3">
+                <h3>Contáctanos</h3>
+            </div>
+            <div class="col-12 col-md-12 col-lg-6">
+                <form action="send" method="post" id="contact-form" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nombre" class="label mb-2">Nombre</label>
+                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email" class="label mb-2">Email</label>
+                                <input type="email" class="form-control" name="correo" id="correo" placeholder="Correo">
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <div class="form-group">
+                                <label for="asunto" class="label mb-2">Asunto</label>
+                                <input type="text" class="form-control" name="asunto" id="asunto" spellcheck="false"
+                                    data-ms-editor="true" placeholder="Asunto">
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <div class="form-group">
+                                <label for="#" class="mb-2">Mensaje</label>
+                                <textarea class="form-control" name="mensaje" id="mensaje" cols="30" rows="4"
+                                    placeholder="Mensaje" spellcheck="false" data-ms-editor="true"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-4 mb-4">
+                            <div class="form-group">
+                                <input type="submit" value="Enviar mensaje" class="btn btn-danger">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 col-md-12 col-lg-6 text-center">
+                <div id="mapa">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31780.39240667423!2d-72.42997022048066!3d5.332794223660006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e6b0dca93add7cb%3A0x46dfbc4a24770cfe!2sYopal%2C%20Casanare!5e0!3m2!1ses-419!2sco!4v1696020182302!5m2!1ses-419!2sco"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-lg-4 mt-3">
+                    <div class="dbox text-center">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <i class="bi bi-pin-map-fill"></i>
+                        </div>
+                        <div class="text-informacion">
+                            <p>
+                                <span>Dirección:</span><br>
+                                Yopal (Casanare) 85001
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 mt-3">
+                    <div class="dbox text-center">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <i class="bi bi-telephone-fill"></i>
+                        </div>
+                        <div class="text-informacion">
+                            <p>
+                                <span>Teléfono:</span><br>
+                                +57 3203388212
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 col-lg-4 mt-3">
+                    <div class="dbox text-center">
+                        <div class="icon d-flex align-items-center justify-content-center">
+                            <i class="bi bi-chat-square-dots-fill"></i>
+                        </div>
+                        <div class="text-informacion">
+                            <p>
+                                <span>Email:</span><br>
+                                {{'soporteingeprosistemas@gmail.com'}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

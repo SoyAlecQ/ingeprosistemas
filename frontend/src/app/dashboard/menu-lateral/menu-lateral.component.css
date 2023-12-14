@@ -1,0 +1,11 @@
+.navbar-brand {
+    color: #FFF;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+a {
+    text-decoration: none;
+}

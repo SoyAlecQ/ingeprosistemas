@@ -1,0 +1,10 @@
+.navbar-nav>.user-menu>.dropdown-menu>.user-body {
+    border-bottom: transparent;
+    border-top: transparent;
+}
+
+.btn-danger {
+    color: #fff !important;
+    background-color: #dc3545 !important;
+    border-color: transparent;    
+}
