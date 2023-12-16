@@ -1,0 +1,7 @@
+div#mismensajes {
+    width: 30%;
+    position: absolute;
+    top: 25%;
+    right: 1%;
+    z-index: 99;
+}

@@ -5,14 +5,3 @@
     font-weight: 700;
     letter-spacing: 2px;
 }
-
-a {
-    text-decoration: none;
-}
-
-div#mismensajes {
-    width: 25%;
-    position: absolute;
-    top: 25%;
-    right: 1%;
-}

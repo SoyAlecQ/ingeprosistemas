@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 var usuariosModel = {}
 
 const Schema = mongoose.Schema
+
 var usuariosSchema = new Schema({
     nombres: String,
     apellidos: String,
@@ -11,9 +12,6 @@ var usuariosSchema = new Schema({
     rol: Number,
     codigoact: String,
     estado: Number,
-    fechaactivacion: Date,
-    codrecuperacion: String,
-    fechacodrecuperacion: Date
 })
 
 const MyModel = mongoose.model('usuarios', usuariosSchema)
@@ -32,11 +30,6 @@ usuariosModel.guardar = function (post, callback) {
     instancia.rol = 2
     instancia.codigoact = post.micodigo
     instancia.estado = 0
-    const fechaActual = new Date()
-    fechaActual.setHours(fechaActual.getHours() - 5)
-    instancia.fechacodrecuperacion = fechaActual
-    instancia.fechaactivacion = ''
-    instancia.codrecuperacion = ''
 
     instancia.save().then((res) => {
         console.log(res)
@@ -116,10 +109,10 @@ usuariosModel.ExisteEmail = function (post, callback) {
 
 usuariosModel.login = function (post, callback) {
     MyModel.find({ email: post.email, password: post.password }, { password: 0, codigoact: 0 }).then((res) => {
-        if (res == 0) {
-            return callback({ state: false, mensaje: 'Sus credenciales no son válidas' })
+        if (res.length == 0) {
+            return callback({ state: false })
         } else {
-            return callback({ state: true, mensaje: 'Bienvenido: ' + res[0].nombres })
+            return callback({ state: true, res: res })
         }
     })
 }
@@ -135,6 +128,34 @@ usuariosModel.EmailActivo = function (post, callback) {
         } else {
             return callback({ state: false })
         }
+    })
+}
+
+/*=============================================
+=            Buscar Codigo Activacion         =
+=============================================*/
+
+usuariosModel.BuscarCodigoActivacion = function (post, callback) {
+    MyModel.find({ email: post.email, codigoact: post.codigo }, { estado: 1 }).then((res) => {
+        console.log(res)
+        if (res == 0) {
+            return callback({ state: false })
+        } else {
+            return callback({ state: true, estado: res[0].estado })
+        }
+    })
+}
+
+/*=============================================
+=            Cambiar Estado Cuenta            =
+=============================================*/
+
+usuariosModel.CambiarEstado = function (post, callback) {
+    MyModel.findOneAndUpdate({ email: post.email, codigoact: post.codigo }, { estado: 1 }).then((res) => {
+        console.log(res)
+        callback({ state: true })
+    }).catch((error) => {
+        callback({ state: false })
     })
 }
 

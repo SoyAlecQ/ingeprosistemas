@@ -1,8 +1,6 @@
 var usuariosModel = require('../modelos/usuariosModel').usuariosModel
 var usuariosController = {}
 
-const { config } = require('../../config')
-
 /*=============================================
 =            Guardar Usuarios            =
 =============================================*/
@@ -53,29 +51,31 @@ usuariosController.guardar = function (request, response) {
             return false
         }
 
+        post.password = sha256(post.password + config.secretEncrypt)
+
         // Email no repetido
         usuariosModel.ExisteEmail(post, function (res) {
 
             if (res.existe == 'No') {
 
-                post.micodigo = "AC" + Math.floor(Math.random() * (999999 - 100000) + 100000)
+                post.micodigo = "IPS" + Math.floor(Math.random() * (999999 - 100000) + 100000)
 
                 usuariosModel.guardar(post, function (respuesta) {
                     if (respuesta.state == true) {
-                        var nodemailer = require('nodemailer')
+
                         let transporter = nodemailer.createTransport({
                             host: 'smtp.gmail.com',
                             port: 587,
                             requireTLS: true,
                             secure: false,
                             auth: {
-                                user: 'config.correogmail',
-                                pass: 'config.passwordgmail'
+                                user: config.userGmail,
+                                pass: config.passwordGmail
                             }
                         })
 
                         let mailOptions = {
-                            from: config.correogmail,
+                            from: config.userGmail,
                             to: post.email,
                             subject: 'Activación de cuenta para IngePro Sistemas',
                             html: `<!DOCTYPE html>
@@ -170,20 +170,6 @@ usuariosController.guardar = function (request, response) {
                                         <td align="center" bgcolor="#e9ecef">
                                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                                                 <tr>
-                                                    <td align="center" valign="top" style="padding: 25px 10px;">
-                                                        <a href="#" target="_blank" style="display: inline-block;">
-                                                            <img src="../frontend/src/assets/img/logo.png" alt="Logo" border="0" width="100"
-                                                                style="display: block; width: 100px; max-width: 100px; min-width: 48px;">
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="center" bgcolor="#e9ecef">
-                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                                                <tr>
                                                     <td align="left" bgcolor="#ffffff"
                                                         style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
                                                         <h1
@@ -270,7 +256,7 @@ usuariosController.guardar = function (request, response) {
                                 console.log(error)
                                 response.json(error)
                             } else {
-                                response.json({ state: true, mensaje: 'Se creó el usuario correctamente, verifica tu correo electrónico'})
+                                response.json({ state: true, mensaje: 'Se creó el usuario correctamente, verifica tu correo electrónico' })
                             }
                         })
 
@@ -397,6 +383,8 @@ usuariosController.login = function (request, response) {
         return false
     }
 
+    post.password = sha256(post.password + config.secretEncrypt)
+
     usuariosModel.EmailActivo(post, function (estado) {
         if (estado.state == false) {
             response.json({ state: false, mensaje: 'El email no es valido' })
@@ -407,7 +395,17 @@ usuariosController.login = function (request, response) {
                 return false
             } else {
                 usuariosModel.login(post, function (respuesta) {
-                    response.json(respuesta)
+                    if (respuesta.state == true) {
+
+                        request.session._id = respuesta.res[0]._id
+                        request.session.nombres = respuesta.res[0].nombres
+                        request.session.apellidos = respuesta.res[0].apellidos
+                        request.session.rol = respuesta.res[0].rol
+
+                        response.json({ state: true, mensaje: 'Bienvenido: ' + respuesta.res[0].nombres + ' ' + respuesta.res[0].apellidos })
+                    } else {
+                        response.json({ state: true, mensaje: 'Sus credenciales no son válidas' })
+                    }
                 })
             }
         }
@@ -420,8 +418,8 @@ usuariosController.login = function (request, response) {
 
 usuariosController.activarcuenta = function (request, response) {
     var post = {
-        email: request.params.email,
-        codigo: request.params.codigo
+        email: request.body.email,
+        codigo: request.body.codigo
     }
 
     if (post.email == undefined || post.email == null || post.email == '') {
@@ -433,6 +431,28 @@ usuariosController.activarcuenta = function (request, response) {
         response.json({ state: false, mensaje: 'El campo código es obligatorio' })
         return false
     }
+
+    usuariosModel.BuscarCodigoActivacion(post, function (respuesta) {
+        if (respuesta.state == false) {
+            console.log({ state: false, mensaje: 'Email o código inválido' })
+            response.json({ state: false, mensaje: 'Email o código inválido' })
+            return false
+        } else {
+            console.log(respuesta)
+            if (respuesta.estado == 1) {
+                response.json({ state: true, mensaje: 'Su cuenta ya fue activada con anterioridad, puede iniciar sesión' })
+
+            } else {
+                usuariosModel.CambiarEstado(post, function (resestado) {
+                    if (resestado.state == true) {
+                        response.json({ state: true, mensaje: 'Su cuenta ha sido activada correctamente' })
+                    } else {
+                        response.json({ state: false, mensaje: 'Se presentó un error al activar la cuenta' })
+                    }
+                })
+            }
+        }
+    })
 }
 
 module.exports.usuariosController = usuariosController

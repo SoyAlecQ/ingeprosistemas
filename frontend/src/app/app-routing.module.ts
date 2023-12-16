@@ -14,6 +14,7 @@ import { CapacitacionesComponent } from './dashboard/menu-lateral/capacitaciones
 import { VentaComputadorasComponent } from './landingpage/servicios/venta-computadoras/venta-computadoras.component';
 import { SoporteEquiposComponent } from './landingpage/servicios/soporte-equipos/soporte-equipos.component';
 import { CapacitacionFormacionComponent } from './landingpage/servicios/capacitacion-formacion/capacitacion-formacion.component';
+import { ActivateAccountComponent } from './authentication/activate-account/activate-account.component';
 
 const routes: Routes = [
   {path: "", component:HomeComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: "olvidopass", component: ForgotPasswordComponent},
   {path: "dashboard", component:InicioComponent},
   {path: "recuperarpass", component:RecoverPasswordComponent},
+  {path: "activarcuenta/:email/:codigo", component:ActivateAccountComponent},
   {path: "dashboard/usuarios", component:UsuariosComponent},
   {path: "dashboard/empleados", component:EmpleadosComponent},
   {path: "dashboard/servicios/venta-equipos", component:VentaEquiposComponent},

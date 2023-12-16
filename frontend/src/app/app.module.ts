@@ -31,6 +31,10 @@ import { CapacitacionFormacionComponent } from './landingpage/servicios/capacita
 import { VentaComputadorasComponent } from './landingpage/servicios/venta-computadoras/venta-computadoras.component';
 import { SoporteEquiposComponent } from './landingpage/servicios/soporte-equipos/soporte-equipos.component';
 import { ContenidoEmpleadosComponent } from './dashboard/menu-lateral/empleados/contenido-empleados/contenido-empleados.component';
+import { ActivateAccountComponent } from './authentication/activate-account/activate-account.component';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { MensajesComponent } from './componentes/mensajes/mensajes.component';
 
 @NgModule({
   declarations: [
@@ -62,11 +66,15 @@ import { ContenidoEmpleadosComponent } from './dashboard/menu-lateral/empleados/
     VentaComputadorasComponent,
     SoporteEquiposComponent,
     ContenidoEmpleadosComponent,
+    ActivateAccountComponent,
+    MensajesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
