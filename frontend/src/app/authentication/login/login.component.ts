@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { PeticionService } from '../../servicios/peticion.service';
 import { MensajesService } from '../../servicios/mensajes.service';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -36,17 +35,10 @@ export class LoginComponent {
         this.msg.Load('danger', res.mensaje)
       } else {
         this.msg.Load('success', res.mensaje)
-
+        
         setTimeout(() => {
           this.router.navigate(['/dashboard'])
-          Swal.fire({
-            title: "Bienvenido!",
-            text: "Credenciales correctas",
-            icon: "success",
-            confirmButtonColor: "#d33",
-            confirmButtonText: "Gracias"
-          });
-        }, 5000);
+        }, 2000);
       }
     })
   }

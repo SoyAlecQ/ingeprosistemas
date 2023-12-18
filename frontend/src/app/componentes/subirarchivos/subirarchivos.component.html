@@ -1,0 +1,13 @@
+<div class="contenedorupload">    
+    
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" [ngStyle]="{width: progress + '%'}" attr.aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100">{{progress}}%</div>
+    </div>
+
+    <label for="miinput">
+        <div class="selectfile mt-2">{{nombrearchivo}}</div>
+        <input type="file" name="" id="miinput" style="display: none;" (change)="SelectFile($event)">
+    </label>
+
+    <button type="button" class="btn btn-secondary mt-3 btn-upload" (click)="upload()">Cargar</button>
+</div>

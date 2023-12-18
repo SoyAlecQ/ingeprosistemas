@@ -9,3 +9,8 @@
 a {
     text-decoration: none;
 }
+
+small.d-block {
+    text-align: center;
+    color: #c2c7d0;
+}

@@ -8,6 +8,7 @@ import { MensajesService } from '../../servicios/mensajes.service';
   templateUrl: './activate-account.component.html',
   styleUrl: './activate-account.component.css'
 })
+
 export class ActivateAccountComponent implements OnInit {
 
   constructor(private actroute: ActivatedRoute, 

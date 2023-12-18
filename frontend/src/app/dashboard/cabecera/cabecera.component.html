@@ -29,28 +29,28 @@
 
     <li class="nav-item dropdown user user-menu">
       <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-        <img src="../../../assets/img/equipo-1.jpg" class="user-image img-circle border border-2" alt="User Image">
-        <span class="hidden-xs">Alexander Quiñonez</span>
+        <img alt="Image" src="../../../assets/img/equipo-1.jpg" class="user-image img-circle border border-2"
+          alt="Image">
+        <span class="hidden-xs">{{nombres}} {{apellidos}}</span>
       </a>
       <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <li class="user-header bg-secondary mb-2">
-          <img src="../../../assets/img/equipo-1.jpg" class="img-circle" alt="User Image">
-  
+          <img src="../../../assets/img/equipo-1.jpg" class="img-circle" alt="Image">
+
           <p>
-            Alexander Quiñonez
-            <small>Administrador</small>
-            <small>Última sesión: 11/12/23 20:08 p.m.</small>
+            {{nombres}} {{apellidos}}
+            <small *ngIf="rol == '1'" class="d-block">Administrador </small>
+            <small *ngIf="rol == '2'" class="d-block">Cliente </small>
           </p>
         </li>
         <li class="user-footer">
           <div class="row justify-content-center">
             <div class="col-8 text-center">
-              <a href="login" type="button" class="btn btn-danger">Cerrar sesión</a>
+              <a (click)="Logout()" type="button" class="btn btn-danger">Cerrar sesión</a>
             </div>
           </div>
         </li>
       </ul>
     </li>
-    
   </ul>
 </nav>

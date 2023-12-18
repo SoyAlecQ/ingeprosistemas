@@ -1,1 +1,206 @@
-<p>capacitaciones works!</p>
+<app-cabecera></app-cabecera>
+
+<app-menu-lateral></app-menu-lateral>
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Capacitaciones</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="dashboard" class="text-danger">Inicio</a></li>
+                        <li class="breadcrumb-item">Servicios</li>
+                        <li class="breadcrumb-item active">Capacitaciones</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-danger card-outline">
+                        <div class="card-header">
+                            <button type="button" class="btn btn-danger" (click)="modalNuevo()">
+                                <i class="fas fa-plus-circle"></i> Nueva capacitación
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                class="table table-bordered table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Código</th>
+                                        <th>Nombre</th>
+                                        <th>Descripción</th>
+                                        <th>Precio</th>
+                                        <th>Imagen</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of data; let i = index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ item.codigo }}</td>
+                                        <td>{{ item.nombre }}</td>
+                                        <td>{{ item.descripcion }}</td>
+                                        <td>{{ item.precio | currency }}</td>
+                                        <td><img src="http://localhost:3000/equipos/{{item._id}}.png"
+                                                class="user-image img-circle border border-2" alt="User Image">
+                                        </td>
+                                        <td>
+                                            <span *ngIf="item.estado == '0'">Inactivo</span>
+                                            <span *ngIf="item.estado == '1'">Activo</span>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-warning mr-2" type="submit"
+                                                (click)="EditarId(item._id)">
+                                                <i class="fas fa-edit"></i> Editar
+                                            </button>
+                                            <button class="btn btn-danger" type="submit" (click)="Eliminar(item._id)">
+                                                <i class="fas fa-trash-alt"></i> Eliminar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registro Equipo -->
+    <div #modalRegistro class="modal" id="modalRegistro" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nueva capacitación</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div action="" method="post">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Código" id="codigo"
+                                [(ngModel)]="codigo">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-filter"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Nombre" id="nombre"
+                                [(ngModel)]="nombre">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-pencil-alt"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" id="descripcion"
+                                [(ngModel)]="descripcion"></textarea>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Precio" id="precio"
+                                [(ngModel)]="precio">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-dollar-sign"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Estado</label>
+                            <select class="form-select" aria-label="Default select example" [(ngModel)]="estado">
+                                <option value="0">Inactivo</option>
+                                <option value="1">Activo</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger" (click)="Registrar()">Agregar capacitación</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Editar Usuario -->
+    <div #modalEditar class="modal" id="modalEditar" aria-labelledby="modalEditarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Editar capacitación</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div action="" method="post">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Código" id="codigo"
+                                [(ngModel)]="codigo" disabled="">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-filter"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Nombre" id="nombre"
+                                [(ngModel)]="nombre">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-pencil-alt"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" id="descripcion"
+                                [(ngModel)]="descripcion"></textarea>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Precio" id="precio"
+                                [(ngModel)]="precio">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-dollar-sign"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Estado</label>
+                            <select class="form-select" aria-label="Default select example" [(ngModel)]="estado">
+                                <option value="0">Inactivo</option>
+                                <option value="1">Activo</option>
+                            </select>
+                        </div>
+
+                        <app-subirarchivos [fileName]="miId"></app-subirarchivos>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger" (click)="Modificar()">Editar capacitación</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<app-footer></app-footer>

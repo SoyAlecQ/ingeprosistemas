@@ -8,7 +8,7 @@ var config = {
         'http://localhost:4200'
     ],
     secretsession: '4phExZHTNf2p6n6Qoj2bDgb',
-    timesession: (60000 * 5),
+    timesession: (600000 * 5),
     namecookie: 'ingeprosistemas'
 }
 

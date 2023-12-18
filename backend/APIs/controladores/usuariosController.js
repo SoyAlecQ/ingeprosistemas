@@ -402,9 +402,9 @@ usuariosController.login = function (request, response) {
                         request.session.apellidos = respuesta.res[0].apellidos
                         request.session.rol = respuesta.res[0].rol
 
-                        response.json({ state: true, mensaje: 'Bienvenido: ' + respuesta.res[0].nombres + ' ' + respuesta.res[0].apellidos })
+                        response.json({ state: true, mensaje: 'Credenciales correctas' })
                     } else {
-                        response.json({ state: true, mensaje: 'Sus credenciales no son válidas' })
+                        response.json({ state: false, mensaje: 'Sus credenciales no son válidas' })
                     }
                 })
             }
@@ -451,6 +451,57 @@ usuariosController.activarcuenta = function (request, response) {
                     }
                 })
             }
+        }
+    })
+}
+
+/*=============================================
+=            Subir Imágenes            =
+=============================================*/
+
+usuariosController.subirArchivo = function (request, response) {
+
+    var post = {
+        nombre: request.params.nombre
+    }
+
+    if (post.nombre == undefined || post.nombre == null || post.nombre == "") {
+        response.json({ state: false, mensaje: "el campo nombre es obligatorio" })
+        return false
+    }
+
+    const storage = multer.diskStorage({
+        destination: (request, file, cb) => {
+            cb(null, 'usuarios/')
+        },
+        filename: (request, file, cb) => {
+            cb(null, post.nombre + '.png')
+        }
+    })
+
+    const fileFilter = (request, file, cb) => {
+        const extensionesSoportadas = [".jpg", ".jpeg", ".png", ".gif"]
+
+        var ext = path.extname(file.originalname).toLocaleLowerCase()
+        console.log(ext)
+        console.log(extensionesSoportadas.includes(ext))
+
+        if (extensionesSoportadas.includes(ext)) {
+            cb(null, true)
+        } else {
+            cb({ mensaje: "Aceptamos solo los siguientes formatos: " + extensionesSoportadas.join(" | ") }, false)
+        }
+    }
+
+    const upload = multer({ storage, fileFilter }).single("archivo")
+
+    upload(request, response, function (err) {
+        if (err) {
+            console.log(err)
+            response.json({ state: false, mensaje: err.mensaje })
+        } else {
+            console.log("Todo Ok")
+            response.json({ state: true, mensaje: "Archivo Cargado" })
         }
     })
 }

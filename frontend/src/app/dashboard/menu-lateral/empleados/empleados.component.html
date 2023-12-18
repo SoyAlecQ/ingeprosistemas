@@ -2,6 +2,244 @@
 
 <app-menu-lateral></app-menu-lateral>
 
-<app-contenido-empleados></app-contenido-empleados>
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Empleados</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="dashboard" class="text-danger">Inicio</a></li>
+                        <li class="breadcrumb-item active">Empleados</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-danger card-outline">
+                        <div class="card-header">
+                            <button type="button" class="btn btn-danger" (click)="modalNuevo()">
+                                <i class="fas fa-folder-plus"></i> Nuevo empleado
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                                class="table table-bordered table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Código</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos</th>
+                                        <th>Fecha nacimiento</th>
+                                        <th>Celular</th>
+                                        <th>Cargo</th>
+                                        <th>Foto</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of data; let i = index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>{{ item.codigo }}</td>
+                                        <td>{{ item.nombres }}</td>
+                                        <td>{{ item.apellidos }}</td>
+                                        <td>{{ item.fechaNacimiento }}</td>
+                                        <td>{{ item.celular }}</td>
+                                        <td>{{ item.cargo }}</td>
+                                        <td><img src="http://localhost:3000/equipos/{{item._id}}.png"
+                                                class="user-image img-circle border border-2" alt="User Image"></td>
+                                        <td>
+                                            <span *ngIf="item.estado == '0'">Inactivo</span>
+                                            <span *ngIf="item.estado == '1'">Activo</span>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-warning mr-2" type="submit"
+                                                (click)="EditarId(item._id)">
+                                                <i class="fas fa-edit"></i> Editar
+                                            </button>
+                                            <button class="btn btn-danger" type="submit" (click)="Eliminar(item._id)">
+                                                <i class="fas fa-trash-alt"></i> Eliminar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registro Empleado -->
+    <div #modalRegistro class="modal" id="modalRegistro" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nuevo empleado</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div action="" method="post">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Código" id="codigo"
+                                [(ngModel)]="codigo">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-id-card-alt"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Nombres" id="nombres"
+                                [(ngModel)]="nombres">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Apellidos" id="apellidos"
+                                [(ngModel)]="apellidos">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-feather"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="fechaNacimiento"
+                                [(ngModel)]="fechaNacimiento" placeholder="yyyy-mm-dd">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Celular" id="celular"
+                                [(ngModel)]="celular">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-phone"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Cargo" id="cargo" [(ngModel)]="cargo">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-business-time"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Estado</label>
+                            <select class="form-select" aria-label="Default select example" [(ngModel)]="estado">
+                                <option value="0">Inactivo</option>
+                                <option value="1">Activo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger" (click)="Registrar()">Agregar empleado</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Editar Empleado -->
+    <div #modalEditar class="modal" id="modalEditar" aria-labelledby="modalEditarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Editar usuario</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div action="" method="post">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Código" id="codigo"
+                                [(ngModel)]="codigo" disabled="">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-id-card-alt"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Nombres" id="nombres"
+                                [(ngModel)]="nombres">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Apellidos" id="apellidos"
+                                [(ngModel)]="apellidos">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-feather"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="fechaNacimiento"
+                                [(ngModel)]="fechaNacimiento">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Celular" id="celular"
+                                [(ngModel)]="celular">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-phone"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Cargo" id="cargo" [(ngModel)]="cargo">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-business-time"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Estado</label>
+                            <select class="form-select" aria-label="Default select example" [(ngModel)]="estado">
+                                <option value="0">Inactivo</option>
+                                <option value="1">Activo</option>
+                            </select>
+                        </div>
+
+                        <app-subirarchivos [fileName]="miId"></app-subirarchivos>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger" (click)="Modificar()">Editar empleado</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <app-footer></app-footer>

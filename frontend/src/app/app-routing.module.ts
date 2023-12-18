@@ -15,9 +15,11 @@ import { VentaComputadorasComponent } from './landingpage/servicios/venta-comput
 import { SoporteEquiposComponent } from './landingpage/servicios/soporte-equipos/soporte-equipos.component';
 import { CapacitacionFormacionComponent } from './landingpage/servicios/capacitacion-formacion/capacitacion-formacion.component';
 import { ActivateAccountComponent } from './authentication/activate-account/activate-account.component';
+import { VentaDetallesComponent } from './landingpage/servicios/venta-computadoras/venta-detalles/venta-detalles.component';
 
 const routes: Routes = [
   {path: "", component:HomeComponent},
+  {path: "home", component:HomeComponent},
   {path: "login", component:LoginComponent},
   {path: "registro", component:RegisterComponent},
   {path: "olvidopass", component: ForgotPasswordComponent},
@@ -30,6 +32,7 @@ const routes: Routes = [
   {path: "dashboard/servicios/soporte-tecnico", component:SoporteTecnicoComponent},
   {path: "dashboard/servicios/capacitaciones", component:CapacitacionesComponent},
   {path: "servicios/venta-equipos", component:VentaComputadorasComponent},
+  {path: "servicios/venta-equipos/venta-detalle/:id/:nombre", component:VentaDetallesComponent},
   {path: "servicios/soporte-tecnico", component:SoporteEquiposComponent},
   {path: "servicios/capacitaciones", component:CapacitacionFormacionComponent}
 ];

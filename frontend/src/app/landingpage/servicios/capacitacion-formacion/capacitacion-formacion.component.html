@@ -1,1 +1,48 @@
 <app-menu></app-menu>
+
+<header class="bg-gradient-gray-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder pt-5">Formación</h1>
+            <p class="lead fw-normal text-white-50 mb-0">No importa tu nivel de experiencia tecnológica, ofrecemos capacitación y formación para que te sientas seguro y competente al usar tus dispositivos. Aprende a sacar el máximo provecho de tu equipo y a mantenerlo seguro en línea con las últimas tecnologías y barreras de seguridad.</p>
+        </div>
+        <form class="d-flex justify-content-center pt-3">
+            <button class="btn btn-danger" type="submit">
+                <i class="bi-cart-fill me-1"></i>
+                Compras
+                <span class="badge bg-body text-dark ms-1 rounded-pill">0</span>
+            </button>
+        </form>
+    </div>
+</header>
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-12 col-sm-6 col-md-4 col-xl-3 mb-5" *ngFor="let item of data">
+                <div class="card h-100">
+                    <img class="card-img-top" src="http://localhost:3000/equipos/{{item._id}}.png" alt="..."
+                        routerLink="/servicios/venta-equipos/venta-detalle/{{item._id}}/{{item.nombre}}" />
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <h5 class="fw-bolder">{{item.nombre}}</h5>
+
+                            <p class="text-muted">{{item.descripcion}}</p>
+                            
+                            <span>{{item.precio | currency}}</span>
+                        </div>
+                    </div>
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto"
+                                href="https://api.whatsapp.com/send?phone=573203388212&text='Hola IngePro Sistemas, me interesa comprar el equipo {{item.nombre}}'">Obtener</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-footer-lp></app-footer-lp>
+
+<app-whatsapp></app-whatsapp>

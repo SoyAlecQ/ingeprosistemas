@@ -26,15 +26,18 @@ import { EmpleadosComponent } from './dashboard/menu-lateral/empleados/empleados
 import { VentaEquiposComponent } from './dashboard/menu-lateral/venta-equipos/venta-equipos.component';
 import { SoporteTecnicoComponent } from './dashboard/menu-lateral/soporte-tecnico/soporte-tecnico.component';
 import { CapacitacionesComponent } from './dashboard/menu-lateral/capacitaciones/capacitaciones.component';
-import { ContenidoUsuariosComponent } from './dashboard/menu-lateral/usuarios/contenido-usuarios/contenido-usuarios.component';
 import { CapacitacionFormacionComponent } from './landingpage/servicios/capacitacion-formacion/capacitacion-formacion.component';
 import { VentaComputadorasComponent } from './landingpage/servicios/venta-computadoras/venta-computadoras.component';
 import { SoporteEquiposComponent } from './landingpage/servicios/soporte-equipos/soporte-equipos.component';
-import { ContenidoEmpleadosComponent } from './dashboard/menu-lateral/empleados/contenido-empleados/contenido-empleados.component';
 import { ActivateAccountComponent } from './authentication/activate-account/activate-account.component';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MensajesComponent } from './componentes/mensajes/mensajes.component';
+import { InterceptorService } from './servicios/interceptor.service';
+import { DataTablesModule } from 'angular-datatables';
+import { CookieService } from 'ngx-cookie-service';
+import { VentaDetallesComponent } from './landingpage/servicios/venta-computadoras/venta-detalles/venta-detalles.component';
+import { SubirarchivosComponent } from './componentes/subirarchivos/subirarchivos.component';
 
 @NgModule({
   declarations: [
@@ -61,13 +64,13 @@ import { MensajesComponent } from './componentes/mensajes/mensajes.component';
     VentaEquiposComponent,
     SoporteTecnicoComponent,
     CapacitacionesComponent,
-    ContenidoUsuariosComponent,
     CapacitacionFormacionComponent,
     VentaComputadorasComponent,
     SoporteEquiposComponent,
-    ContenidoEmpleadosComponent,
     ActivateAccountComponent,
     MensajesComponent,
+    VentaDetallesComponent,
+    SubirarchivosComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,8 +78,17 @@ import { MensajesComponent } from './componentes/mensajes/mensajes.component';
     RouterModule,
     FormsModule,
     HttpClientModule,
+    DataTablesModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
